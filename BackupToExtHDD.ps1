@@ -1,10 +1,12 @@
-# Backup all files infot specified directory. Because robocopy is used with /PURGE option
-# destination paths must be uniqe.
+# Backup all files infot specified directory. Because robocopy is used with /MIR (/PURGE) option
+# destination paths must be uniqe. This is done by adding full source directory to target
+
 # Source directories - comma separated
 $Source_dirs = @("C:\Users\bathoryr\Documents\K2Studio", "C:\Users\bathoryr\Pictures\2015-08")
 # Backup directory without drive letter
 $Dest_dir = "\Backup\TestBackup001"
 
+# Windows MessageBox - https://msdn.microsoft.com/en-us/library/ms598709%28v=vs.110%29.aspx
 Add-Type -AssemblyName PresentationFramework
 
 function checkForUsbDrive
@@ -44,7 +46,7 @@ try {
     Write-Warning "Starting backup to $driveLetter$Dest_dir"
     foreach ($source in $Source_dirs) {
         Write-Information " copying files from $source..."
-        $dest = Join-Path $driveLetter$Dest_dir (SPlit-Path $source -Leaf)
+        $dest = Join-Path $driveLetter$Dest_dir (SPlit-Path $source -NoQualifier)
         robocopy $source $dest *.* /J /MIR /ETA 
     }
     if ([System.Windows.MessageBox]::Show('Záloha je hotova.\r\nChcete odpojit disk?', 'Hotovo', 'YesNo', 'Question') -eq 'Yes') {
