@@ -1,7 +1,7 @@
-# Backup all files infot specified directory. Because robocopy is used with /PURGE option
+﻿# Backup all files infot specified directory. Because robocopy is used with /PURGE option
 # destination paths must be uniqe.
 # Source directories - comma separated
-$Source_dirs = @("C:\Users\bathoryr\Documents\K2Studio", "C:\Users\bathoryr\Pictures\2015-08")
+$Source_dirs = @("C:\Users\User1\Folder1", "C:\Users\User1\Folder2")
 # Backup directory without drive letter
 $Dest_dir = "\Backup\TestBackup001"
 
